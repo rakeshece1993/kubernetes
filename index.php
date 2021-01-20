@@ -6,10 +6,10 @@
         <title>Random Number</title>
     </head>
     <body>
-        <p>Generating a random number between 1 and 10:
+        <p>Generating a random number between 1 and 100:
             <?php
 
-            echo rand(1, 10);
+            echo rand(1, 100);
 
             ?>
         </p>
