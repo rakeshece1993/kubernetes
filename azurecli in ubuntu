@@ -1,0 +1,45 @@
+#! /bin/bash/
+
+echo "\033[0;33m  Installation is now going to start, Plelase wait... \033[0m"
+a="System is updated"
+b="Dependencies have been installed successfully"
+c="Repository is now added"
+d="Repository is now going to updated"
+
+sudo apt update
+if [ $(echo $?) -eq 0 ]
+then
+        echo "\033[1;33m STEP1: > \033[1;34m  $a \033[0m"
+        echo "\n\n"
+else
+        echo "Please check your Internet connectivity"
+fi
+sudo apt-get install -y ca-certificates curl apt-transport-https lsb-release gnupg
+sleep 1
+echo "\033[1;33m STEP2: > \033[1;34m $b \033[0m"
+echo "\n"
+
+curl -sL https://packages.microsoft.com/keys/microsoft.asc |
+            gpg --dearmor |
+                sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg
+AZ_REPO=$(lsb_release -cs)
+echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" |
+            sudo tee /etc/apt/sources.list.d/azure-cli.list
+
+echo "\033[1;33m STEP3: > \033[1;34m $c \033[0m"
+echo "\n"
+sudo apt update
+echo "\n"
+echo "\033[1;33m STEP4: > \033[1;34m $d \033[0m"
+sudo apt-get install azure-cli
+echo "\n"
+echo "\033[1;33m STEP5: > \033[1;34m Now \033[1;31m AzureCLI \033[1;34mpaackage has been installed \033[0m"
+
+echo "\t###########################################
+      \t#\t\033[1;34m***************************\033[0m\t  #
+      \t#\t\t\033[1;33mCONGRATULATIONS\033[0m\t\t  #
+      \t#\t\033[1;34m***************************\033[0m\t  #
+      \t###########################################"
+
+echo "\n
+\t For login type \033[0;45m az login \033[0m\n\n"
