@@ -1,7 +1,9 @@
 #! /bin/bash
 #https://www.linkedin.com/pulse/ssh-docker-container-centos-yashwanth-medisetti
 docker rm -f $(docker ps -qa)
-docker rmi -f $(docker images -qa)
+docker rmi -f $(docker images -qa) 
+
+echo > ~/.ssh/known_hosts
 echo "Welcome to Docker World"
 sleep 2
 pub=$(cat $HOME/.ssh/id_rsa.pub)
@@ -42,11 +44,11 @@ do
 done
 
 docker ps -a | nl
-
-for i in $(docker ps -a | awk '{print $1}' | sed 1d); do docker exec -it $i hostname -i; done
-#ssh-keygen
-
-#a=$(cat $HOME/.ssh/id_rsa.pub)
+apt install sshpass -y 
+echo -e "To make password less authentication Fire these command \n
+1.) ssh-keygen
+2.) for j in \$(for i in \$(docker ps -aq); do docker exec -it \$i hostname -i; done); do sshpass -p "redhat" ssh-copy-id -o StrictHostKeyChecking=no root@"\$j" ; done\n ---------------*************-----------------"
+for i in $(docker ps -aq); do docker exec -it $i hostname -i; done
 
 
 
