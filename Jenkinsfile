@@ -4,6 +4,7 @@ pipeline{
     stage("build"){
       steps{
          echo "this hello from Build."
+        echo"this is new changes"
       }
     }
     
